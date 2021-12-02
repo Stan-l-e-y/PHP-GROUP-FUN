@@ -17,12 +17,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function (Request $request) {
-    return view('test', ['request' => $request]);
-});
+
+
+// Route::get('/', function () {
+//     return view('navigation');
+// });
+
+// When clicking on the notification manager, return me the notif-manager view with all of the clients
+// and all of the notifications that belong to those clients, eager loading here at the end 
+// Route::get('/notification-manager', function () {
+//     return view('notification-manager', [
+//         'client' =>  Client::with('notification')->get()
+//     ]);
+// });
 
 Route::get('/posts', [PostsController::class, 'index']);
 
 Auth::routes();
 
-Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
