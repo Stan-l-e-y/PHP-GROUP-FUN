@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\PostsController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -19,9 +18,9 @@ use Illuminate\Support\Facades\Route;
 
 
 
-// Route::get('/', function () {
-//     return view('navigation');
-// });
+Route::get('/navigation', function () {
+    return view('navigation');
+});
 
 // When clicking on the notification manager, return me the notif-manager view with all of the clients
 // and all of the notifications that belong to those clients, eager loading here at the end 
@@ -35,4 +34,4 @@ Route::get('/posts', [PostsController::class, 'index']);
 
 Auth::routes();
 
-//Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
