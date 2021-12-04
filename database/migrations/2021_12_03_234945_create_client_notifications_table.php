@@ -13,9 +13,9 @@ class CreateClientNotificationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('client_notification', function (Blueprint $table) {
-            $table->unsignedBigInteger('client_id');
-            $table->unsignedBigInteger('notification_id');
+        Schema::create('client_notifications', function (Blueprint $table) {
+            $table->unsignedBigInteger('client_id')->nullable();
+            $table->unsignedBigInteger('notification_id')->nullable();
             $table->foreign('client_id')
                 ->references('id')
                 ->on('notifications')
@@ -24,9 +24,9 @@ class CreateClientNotificationsTable extends Migration
                 ->references('id')
                 ->on('clients')
                 ->onDelete('cascade');
-            $table->date('start_time');
-            $table->integer('frequency');
-            $table->string('status');
+            // $table->date('start_time');
+            // $table->integer('frequency');
+            // $table->string('status');
             $table->timestamps();
         });
     }

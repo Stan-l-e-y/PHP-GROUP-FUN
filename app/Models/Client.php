@@ -12,6 +12,6 @@ class Client extends Model
 
     public function notifications()
     {
-        return $this->belongsToMany(Notification::class);
+        return $this->belongsToMany(Notification::class, 'client_notifications', 'client_id', 'notification_id');
     }
 }

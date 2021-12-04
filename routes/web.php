@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\PostsController;
+use App\Models\Client;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +33,17 @@ Route::get('/navigation', function () {
 // });
 
 Route::get('/posts', [PostsController::class, 'index']);
+
+
+Route::get('/clients', [ClientsController::class, 'show']);
+
+Route::get('/clients/{client}', function (Client $client) {
+    return view('client-update', [
+        'client' => $client
+    ]);
+});
+
+Route::get('/clients/create', [ClientsController::class, 'create']);
 
 Auth::routes();
 
