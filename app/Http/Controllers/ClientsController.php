@@ -10,15 +10,23 @@ class ClientsController extends Controller
 {
     public function show()
     {
-        $client = Client::find(1);
-        $notif = Notification::find(1);
+        $clients = Client::all();
+        //$notif = Notification::find(1);
 
         //print_r($client);
-        return view('show', ['client' => $client, 'notif' => $notif]);
+        return view('show', ['clients' => $clients]);
     }
 
     public function create()
     {
         return view('client-create');
+    }
+
+    public function destroy(Client $client)
+    {
+
+        $client->delete();
+
+        return redirect('/clients');
     }
 }

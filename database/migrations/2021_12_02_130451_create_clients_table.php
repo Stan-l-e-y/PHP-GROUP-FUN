@@ -22,10 +22,9 @@ class CreateClientsTable extends Migration
             $table->string('phone_number');
             $table->string('cell_number');
             $table->string('carrier');
-            $table->double("hst_number");
-            $table->string('website');
-            $table->string('status');
-            $table->timestamps();
+            $table->double("hst_number")->nullable();
+            $table->string('website')->nullable();
+            $table->string('status')->nullable()->default('Active');
         });
     }
 

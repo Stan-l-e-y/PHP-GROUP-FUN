@@ -17,8 +17,7 @@ class CreateNotificationsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('type');
-            $table->string('status');
-            $table->timestamps();
+            $table->string('status')->nullable()->default('Disabled');
         });
     }
 

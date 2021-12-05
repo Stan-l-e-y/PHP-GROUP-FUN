@@ -32,6 +32,9 @@ Route::get('/navigation', function () {
 //     ]);
 // });
 
+Route::get('/clients/create', [ClientsController::class, 'create']);
+
+
 Route::get('/posts', [PostsController::class, 'index']);
 
 
@@ -43,7 +46,8 @@ Route::get('/clients/{client}', function (Client $client) {
     ]);
 });
 
-Route::get('/clients/create', [ClientsController::class, 'create']);
+
+Route::delete('/clients/{client}', [ClientsController::class, 'destroy']);
 
 Auth::routes();
 

@@ -12,6 +12,7 @@ class Client extends Model
 
     public function notifications()
     {
-        return $this->belongsToMany(Notification::class, 'client_notifications', 'client_id', 'notification_id');
+        return $this->belongsToMany(Notification::class, 'client_notifications', 'client_id', 'notification_id')
+            ->withPivot(['start_time', 'frequency', 'status']);
     }
 }
