@@ -40,12 +40,15 @@ Route::get('/posts', [PostsController::class, 'index']);
 
 Route::get('/clients', [ClientsController::class, 'show']);
 
-Route::get('/clients/{client}', function (Client $client) {
+Route::post('/clients', [ClientsController::class, 'store']);
+
+Route::get('/clients/{client}/edit', function (Client $client) {
     return view('client-update', [
         'client' => $client
     ]);
 });
 
+Route::patch('/clients/{client}', [ClientsController::class, 'update']);
 
 Route::delete('/clients/{client}', [ClientsController::class, 'destroy']);
 

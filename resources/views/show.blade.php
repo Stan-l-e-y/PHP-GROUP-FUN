@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="/css/app.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 </head>
 
 <body>
@@ -116,7 +117,7 @@
                         
                       
                     <td class="px-6 py-4 whitespace-nowrap">
-                      <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                      <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-300 ">
                         {{ $client->status }}
                       </span>
                     </td>
@@ -124,14 +125,14 @@
                     @elseif ($client->status == "Inactive")
 
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-200">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-400 ">
                           {{ $client->status }}
                         </span>
                       </td>
 
                     @endif
                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <a href="/clients/{{ $client->id }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                      <a href="/clients/{{ $client->id }}/edit" class="text-indigo-600 hover:text-indigo-900">Edit</a>
                     </td>
                   </tr>
                   
@@ -144,6 +145,12 @@
           </div>
         </div>
       </div>
+
+      @if (session()->has('success'))
+        <div x-data="{show: true}" x-init="setTimeout(() => show = false, 8000)" x-show="show" class="fixed bottom-5 right-5 bg-blue-500 py-2 px-4 rounded-xl text-sm">
+          <p>{{ session('success') }}</p>
+        </div>
+      @endif
 
 </body>
 

@@ -10,6 +10,10 @@ class Client extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
+    protected $guarded = ['id'];
+
     public function notifications()
     {
         return $this->belongsToMany(Notification::class, 'client_notifications', 'client_id', 'notification_id')
