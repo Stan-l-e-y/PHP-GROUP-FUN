@@ -12,6 +12,7 @@
   src="https://code.jquery.com/jquery-3.6.0.js"
   integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
   crossorigin="anonymous"></script>
+  <meta name="csrf-token" content="{{ csrf_token() }}" />
 </head>
 
 <body>
@@ -111,15 +112,17 @@
     
             <div class="mb-6">
                 <label for="status" class="block mb-2 uppercase font-bold text-xs text-gray-700">status</label>
-                <span class=" mr-1 uppercase font-bold text-xs text-green-500">Active</span><input type="radio" id="active" name="status" value="Active" {{ old('status',$client->status) == 'Active' ? 'checked' : '' }} >
-                <span class=" ml-5 mr-1 uppercase font-bold text-xs text-red-500">Inactive</span><input type="radio" id="inactive" name="status" value="Inactive" {{ old('status',$client->status) == 'Inactive' ? 'checked' : '' }}>
+                <span class=" mr-1 uppercase font-bold text-xs text-green-500">Active</span><input type="radio" id="active" name="status" value="Active" class="status" {{ old('status',$client->status) == 'Active' ? 'checked' : '' }} >
+                <span class=" ml-5 mr-1 uppercase font-bold text-xs text-red-500">Inactive</span><input type="radio" id="inactive" name="status" value="Inactive" class="status" {{ old('status',$client->status) == 'Inactive' ? 'checked' : '' }}>
                 @error('status')
                   <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
                 @enderror
               </div>
+              
             
             <div class="mb-1">
-                <button class="bg-blue-500 tracking-wide text-white px-6 py-2 inline-block mb-3 shadow-lg rounded hover:bg-blue-700">Update</button>
+                <input type="hidden" class="update_val" value="{{ $client->id }}">
+                <button class="bg-blue-500 updatebtn tracking-wide text-white px-6 py-2 inline-block mb-3 shadow-lg rounded hover:bg-blue-700">Update</button>
             </div>
         </div>
 
@@ -133,12 +136,13 @@
             <input type="hidden" class="delete_val" value="{{ $client->id }}">
             <button class="deletebtn bg-red-500 tracking-wide ml-5 text-white px-6 py-2 inline-block mb-6 shadow-lg rounded hover:bg-red-700">Delete</button>
         </form>
-    </div>
+    </div>s
 </body>
 
+<!-- Delete button confirmation pop-up done with jquery and ajax-->
 <script>
   $(document).ready(function (){
-
+    
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -181,6 +185,74 @@
         } 
       });
     });
+
+
+
+
+    
+    // $('.updatebtn').click(function (e){
+    //   e.preventDefault();
+      
+    //   var update_id = $(this).closest('div').find('.update_val').val();
+    //    //alert(update_id);
+
+    //   swal({
+    //     title: "Are sure you want to update this entry?",
+    //     text: "",
+    //     icon: "warning",
+    //     buttons: true,
+    //     dangerMode: true,
+    //   })
+    //   .then((willDelete) => {
+    //     if (willDelete) {
+
+    //       var data = {
+    //         "_token": $('input[name="_token"]').val(),
+    //         "id": update_id,
+    //         "first_name": $('#first_name').val(),
+    //         "last_name": $('#last_name').val(),
+    //         "company_name": $('#company_name').val(),
+    //         "business_number": $('#business_number').val(),
+    //         "phone_number": $('#phone_number').val(),
+    //         "cell_number": $('#cell_number').val(),
+    //         "carrier": $('#carrier').val(),
+    //         "hst_number": $('#hst_number').val(),
+    //         "website": $('#website').val(),
+    //         "status": $('.status').val()
+    //       }
+    //       alert(data.status);
+    //       $.ajax({
+    //         type: "PATCH",
+    //         url: '/clients/'+ update_id,
+    //         data: data,
+    //         success: function (response) {
+    //           swal(response.status, {
+    //               icon: "success",
+    //             })
+    //             .then((result) => {
+    //               location.assign('/clients');
+    //             });
+    //         },
+    //         error: function (request, status, error) {
+    //                 alert(request.responseText);
+    //             }
+    //       });
+    //     } 
+    //   });
+    // });
   });
 </script>
+
+<!-- Update button confirmation pop-up done with jquery and ajax-->
+{{-- <script>
+  $(document).ready(function (){
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    
+  });
+</script> --}}
 </html>

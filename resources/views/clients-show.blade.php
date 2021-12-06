@@ -8,10 +8,14 @@
     <title>Document</title>
     <link href="/css/app.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 
 <body>
-    <div class="mt-10 ml-5"><a href="/clients/create" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-10">Add Client</a></div>
+    <div class="flex flex-row">
+      <div class="mt-10 ml-5"><a href="/clients/create" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-10">Add Client</a></div>
+      <div class="mt-10 ml-5"><a href="/navigation" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mt-10">Go Back</a></div>
+    </div>
     <br>
     <br>
     <br>
@@ -149,6 +153,7 @@
       @if (session()->has('success'))
         <div x-data="{show: true}" x-init="setTimeout(() => show = false, 8000)" x-show="show" class="fixed bottom-5 right-5 bg-blue-500 py-2 px-4 rounded-xl text-sm">
           <p>{{ session('success') }}</p>
+          
         </div>
       @endif
 

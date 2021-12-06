@@ -5,22 +5,25 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use App\Models\Notification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class ClientsController extends Controller
 {
     public function show()
     {
+
         $clients = Client::all();
         //$notif = Notification::find(1);
 
         //print_r($client);
-        return view('show', ['clients' => $clients]);
+        return view('clients-show', ['clients' => $clients]);
     }
 
     public function create()
     {
         return view('client-create');
     }
+
 
     public function update(Client $client)
     {
@@ -41,6 +44,7 @@ class ClientsController extends Controller
 
         $client->update($attributes);
 
+        //return response()->json(['status' => 'Client Updated!']);
         return redirect('/clients')->with('success', 'Client Updated!');
     }
 
@@ -49,7 +53,7 @@ class ClientsController extends Controller
 
         $client->delete();
 
-        return response()->json(['status' => 'Deleted!']);
+        return response()->json(['status' => 'Client Deleted!']);
         //return redirect('/clients')
     }
 
