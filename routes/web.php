@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\ClientsController;
+use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\PostsController;
 use App\Models\Client;
+use App\Models\Notification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +34,8 @@ Route::get('/navigation', function () {
 //     ]);
 // });
 
+//Client Routes
+
 Route::get('/clients/create', [ClientsController::class, 'create']);
 
 
@@ -42,6 +46,7 @@ Route::get('/clients', [ClientsController::class, 'show']);
 
 Route::post('/clients', [ClientsController::class, 'store']);
 
+//Utilizing Route Model binding, to bind a model to a route and display an entry in a view
 Route::get('/clients/{client}/edit', function (Client $client) {
     return view('client-update', [
         'client' => $client
@@ -55,3 +60,21 @@ Route::delete('/clients/{client}', [ClientsController::class, 'destroy']);
 Auth::routes();
 
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+//Notification Routes
+
+Route::get('/notifications', [NotificationsController::class, 'show']);
+
+Route::get('/notifications/create', [NotificationsController::class, 'create']);
+
+Route::post('/notifications', [NotificationsController::class, 'store']);
+
+Route::get('/notifications/{notification}/edit', function (Notification $notification) {
+    return view('notification-update', [
+        'notification' => $notification
+    ]);
+});
+
+Route::patch('/notifications/{notification}', [NotificationsController::class, 'update']);
+
+Route::delete('/notifications/{notification}', [NotificationsController::class, 'destroy']);
