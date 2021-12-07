@@ -23,9 +23,9 @@ class CreateClientNotificationsTable extends Migration
                 ->onDelete('cascade');
             $table->foreign('notification_id')
                 ->references('id')
-                ->on('clients')
+                ->on('notifications')
                 ->onDelete('cascade');
-            $table->date('start_time');
+            $table->dateTime('start_time');
             $table->integer('frequency');
             $table->string('status')->nullable()->default('Active');
         });

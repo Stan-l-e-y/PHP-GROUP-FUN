@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClientNotificationsController;
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\PostsController;
@@ -78,3 +79,21 @@ Route::get('/notifications/{notification}/edit', function (Notification $notific
 Route::patch('/notifications/{notification}', [NotificationsController::class, 'update']);
 
 Route::delete('/notifications/{notification}', [NotificationsController::class, 'destroy']);
+
+//Client Event Routes /clientnotifications
+
+Route::get('/clientnotifications', [ClientNotificationsController::class, 'show']);
+
+Route::get('/clientnotifications/create', [ClientNotificationsController::class, 'create']);
+
+Route::post('/clientnotifications', [ClientNotificationsController::class, 'store']);
+
+Route::get('/clientnotifications/{clientnotification}/edit', function (ClientNotificationsController $clientnotification) {
+    return view('clientnotification-update', [
+        'clientnotification' => $clientnotification
+    ]);
+});
+
+Route::patch('/clientnotifications/{clientnotification}', [ClientNotificationsController::class, 'update']);
+
+Route::delete('/clientnotifications/{clientnotification}', [ClientNotificationsController::class, 'destroy']);

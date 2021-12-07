@@ -17,7 +17,6 @@
 
 <body>
     {{-- {{$client}} --}}
-
     <form action="/clients/{{ $client->id }}" method="POST">
     
         @method('PATCH')
