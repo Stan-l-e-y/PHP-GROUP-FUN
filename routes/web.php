@@ -5,6 +5,7 @@ use App\Http\Controllers\ClientNotificationsController;
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\PostsController;
+use App\Http\Controllers\SessionsController;
 use App\Models\Client;
 use App\Models\ClientNotification;
 use App\Models\Notification;
@@ -23,11 +24,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', [SessionsController::class, 'view']);
 
 
 Route::get('/navigation', function () {
     return view('navigation');
-});
+})->middleware('auth');
 
 // When clicking on the notification manager, return me the notif-manager view with all of the clients
 // and all of the notifications that belong to those clients, eager loading here at the end 
@@ -39,68 +41,72 @@ Route::get('/navigation', function () {
 
 //Client Routes
 
-Route::get('/clients/create', [ClientsController::class, 'create']);
+Route::get('/clients/create', [ClientsController::class, 'create'])->middleware('auth');
 
 
-Route::get('/posts', [PostsController::class, 'index']);
+Route::get('/clients', [ClientsController::class, 'show'])->middleware('auth');
 
-
-Route::get('/clients', [ClientsController::class, 'show']);
-
-Route::post('/clients', [ClientsController::class, 'store']);
+Route::post('/clients', [ClientsController::class, 'store'])->middleware('auth');
 
 //Utilizing Route Model binding, to bind a model to a route and display an entry in a view
 Route::get('/clients/{client}/edit', function (Client $client) {
     return view('client-update', [
         'client' => $client
     ]);
-});
+})->middleware('auth');
 
-Route::patch('/clients/{client}', [ClientsController::class, 'update']);
+Route::patch('/clients/{client}', [ClientsController::class, 'update'])->middleware('auth');
 
-Route::delete('/clients/{client}', [ClientsController::class, 'destroy']);
+Route::delete('/clients/{client}', [ClientsController::class, 'destroy'])->middleware('auth');
 
-Auth::routes();
-
-Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //Notification Routes
 
-Route::get('/notifications', [NotificationsController::class, 'show']);
+Route::get('/notifications', [NotificationsController::class, 'show'])->middleware('auth');
 
-Route::get('/notifications/create', [NotificationsController::class, 'create']);
+Route::get('/notifications/create', [NotificationsController::class, 'create'])->middleware('auth');
 
-Route::post('/notifications', [NotificationsController::class, 'store']);
+Route::post('/notifications', [NotificationsController::class, 'store'])->middleware('auth');
 
 Route::get('/notifications/{notification}/edit', function (Notification $notification) {
     return view('notification-update', [
         'notification' => $notification
     ]);
-});
+})->middleware('auth');
 
-Route::patch('/notifications/{notification}', [NotificationsController::class, 'update']);
+Route::patch('/notifications/{notification}', [NotificationsController::class, 'update'])->middleware('auth');
 
-Route::delete('/notifications/{notification}', [NotificationsController::class, 'destroy']);
+Route::delete('/notifications/{notification}', [NotificationsController::class, 'destroy'])->middleware('auth');
 
 //Client Event Routes /clientnotifications
 
-Route::get('/clientnotifications', [ClientNotificationsController::class, 'show']);
+Route::get('/clientnotifications', [ClientNotificationsController::class, 'show'])->middleware('auth');
 
-Route::get('/clientnotifications/create', [ClientNotificationsController::class, 'create']);
+Route::get('/clientnotifications/create', [ClientNotificationsController::class, 'create'])->middleware('auth');
 
-Route::post('/clientnotifications', [ClientNotificationsController::class, 'store']);
+Route::post('/clientnotifications', [ClientNotificationsController::class, 'store'])->middleware('auth');
 
 Route::get('/clientnotifications/{clientnotification}/edit', function (ClientNotification $clientnotification) {
     return view('clientnotification-update', [
         'clientnotification' => $clientnotification
     ]);
-});
+})->middleware('auth');
 
-Route::patch('/clientnotifications/{clientnotification}', [ClientNotificationsController::class, 'update']);
+Route::patch('/clientnotifications/{clientnotification}', [ClientNotificationsController::class, 'update'])->middleware('auth');
 
-Route::delete('/clientnotifications/{clientnotification}', [ClientNotificationsController::class, 'destroy']);
-
-
+Route::delete('/clientnotifications/{clientnotification}', [ClientNotificationsController::class, 'destroy'])->middleware('auth');
 
 
-Route::get('register', [RegisterController::class, 'create']);
+
+
+Route::get('register', [RegisterController::class, 'create'])->middleware('guest');
+
+Route::post('register', [RegisterController::class, 'store'])->middleware('guest');
+
+
+
+Route::post('/logout', [SessionsController::class, 'destroy'])->middleware('auth');
+
+Route::get('/login', [SessionsController::class, 'create'])->middleware('guest');
+
+Route::post('/login', [SessionsController::class, 'store'])->middleware('guest');

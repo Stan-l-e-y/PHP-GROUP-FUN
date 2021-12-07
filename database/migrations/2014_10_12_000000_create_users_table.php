@@ -22,8 +22,8 @@ class CreateUsersTable extends Migration
             $table->string('cell_number');
             $table->string('position');
             $table->string('password');
-            $table->string('picture');
-            $table->string('status');
+            $table->string('picture')->nullable();
+            $table->string('status')->default('Active');
         });
     }
 

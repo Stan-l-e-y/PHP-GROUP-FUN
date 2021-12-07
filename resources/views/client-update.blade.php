@@ -123,6 +123,11 @@
                 <input type="hidden" class="update_val" value="{{ $client->id }}">
                 <button class="bg-blue-500 updatebtn tracking-wide text-white px-6 py-2 inline-block mb-3 shadow-lg rounded hover:bg-blue-700">Update</button>
             </div>
+            {{-- <div>
+              @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+                @endforeach
+            </div> --}}
         </div>
 
         
@@ -135,7 +140,7 @@
             <input type="hidden" class="delete_val" value="{{ $client->id }}">
             <button class="deletebtn bg-red-500 tracking-wide ml-5 text-white px-6 py-2 inline-block mb-6 shadow-lg rounded hover:bg-red-700">Delete</button>
         </form>
-    </div>s
+    </div>
 </body>
 
 <!-- Delete button confirmation pop-up done with jquery and ajax-->
@@ -238,7 +243,7 @@
     //       });
     //     } 
     //   });
-    // });
+    });
   });
 </script>
 
