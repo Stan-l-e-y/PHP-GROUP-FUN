@@ -13,13 +13,13 @@ class CreateClientNotificationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('client_notifications', function (Blueprint $table) {
+        Schema::create('client_notification', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('client_id');
             $table->unsignedBigInteger('notification_id');
             $table->foreign('client_id')
                 ->references('id')
-                ->on('notifications')
+                ->on('clients')
                 ->onDelete('cascade');
             $table->foreign('notification_id')
                 ->references('id')

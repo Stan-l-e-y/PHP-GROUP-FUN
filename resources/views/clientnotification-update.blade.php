@@ -16,7 +16,7 @@
 </head>
 
 <body>
-    {{-- {{ddd($clientnotification)}} --}}
+
 
     <form action="/clientnotifications/{{ $clientnotification->id }}" method="POST">
     
@@ -83,7 +83,7 @@
             <input type="hidden" class="delete_val" value="{{ $clientnotification->id }}">
             <button class="deletebtn bg-red-500 tracking-wide ml-5 text-white px-6 py-2 inline-block mb-6 shadow-lg rounded hover:bg-red-700">Delete</button>
         </form>
-    </div>s
+    </div>
 </body>
 
 <!-- Delete button confirmation pop-up done with jquery and ajax-->

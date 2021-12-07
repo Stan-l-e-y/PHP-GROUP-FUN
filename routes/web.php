@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ClientNotificationsController;
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\PostsController;
 use App\Models\Client;
+use App\Models\ClientNotification;
 use App\Models\Notification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -88,7 +90,7 @@ Route::get('/clientnotifications/create', [ClientNotificationsController::class,
 
 Route::post('/clientnotifications', [ClientNotificationsController::class, 'store']);
 
-Route::get('/clientnotifications/{clientnotification}/edit', function (ClientNotificationsController $clientnotification) {
+Route::get('/clientnotifications/{clientnotification}/edit', function (ClientNotification $clientnotification) {
     return view('clientnotification-update', [
         'clientnotification' => $clientnotification
     ]);
@@ -97,3 +99,8 @@ Route::get('/clientnotifications/{clientnotification}/edit', function (ClientNot
 Route::patch('/clientnotifications/{clientnotification}', [ClientNotificationsController::class, 'update']);
 
 Route::delete('/clientnotifications/{clientnotification}', [ClientNotificationsController::class, 'destroy']);
+
+
+
+
+Route::get('register', [RegisterController::class, 'create']);
