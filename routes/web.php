@@ -6,9 +6,11 @@ use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\SessionsController;
+use App\Http\Controllers\UsersController;
 use App\Models\Client;
 use App\Models\ClientNotification;
 use App\Models\Notification;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -98,15 +100,34 @@ Route::delete('/clientnotifications/{clientnotification}', [ClientNotificationsC
 
 
 
+//Register a user corresponding routes
+// Route::get('register', [RegisterController::class, 'create'])->middleware('guest');
 
-Route::get('register', [RegisterController::class, 'create'])->middleware('guest');
-
-Route::post('register', [RegisterController::class, 'store'])->middleware('guest');
+// Route::post('register', [RegisterController::class, 'store'])->middleware('guest');
 
 
-
+//Session routes
 Route::post('/logout', [SessionsController::class, 'destroy'])->middleware('auth');
 
 Route::get('/login', [SessionsController::class, 'create'])->middleware('guest');
 
 Route::post('/login', [SessionsController::class, 'store'])->middleware('guest');
+
+
+//Employee routes
+
+Route::get('/users', [UsersController::class, 'show'])->middleware('auth');
+
+Route::get('/users/create', [UsersController::class, 'create'])->middleware('auth');
+
+Route::post('/users', [UsersController::class, 'store'])->middleware('auth');
+
+Route::get('/users/{user}/edit', function (User $user) {
+    return view('user-update', [
+        'user' => $user
+    ]);
+})->middleware('auth');
+
+Route::patch('/users/{user}', [UsersController::class, 'update'])->middleware('auth');
+
+Route::delete('/users/{user}', [UsersController::class, 'destroy'])->middleware('auth');

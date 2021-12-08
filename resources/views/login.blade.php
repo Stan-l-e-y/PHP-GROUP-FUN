@@ -14,9 +14,7 @@
 
 <body class="h-screen mt-10">
     <div class="flex items-center justify-between md:flex-col">
-        <div class="flex h-28 md:w-1/6 self-end">
-            <div class="mr-7 font-bold text-blue-500"><a href="/register">Register</a></div>
-        </div>
+
         <div class="max-w-lg mx-auto bg-gray-100 p-6  rounded-xl border border-gray-200">
             <h1 class="text-center font-bold text-xl">Log In</h1>
             <form action="/login" method="POST" class="mt-10">

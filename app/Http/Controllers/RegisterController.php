@@ -22,7 +22,7 @@ class RegisterController extends Controller
             'cell_number' => 'required|string',
             'position' => 'required|string',
             'password' => 'required|string',
-            'status' => 'nullable'
+            'status' => 'required|nullable'
         ]);
 
         $user = User::create($attributes);
