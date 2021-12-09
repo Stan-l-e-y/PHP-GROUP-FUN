@@ -7,10 +7,11 @@ use Illuminate\Http\Request;
 
 class ClientNotificationsController extends Controller
 {
-    public function show()
+    public function show(Request $request)
     {
         $clientnotifications = ClientNotification::all();
 
+        LogsController::createLog($request, 'client event', 'view client events');
 
         return view('clientnotifications-show', ['clientnotifications' => $clientnotifications]);
     }
@@ -20,7 +21,7 @@ class ClientNotificationsController extends Controller
         return view('clientnotification-create');
     }
 
-    public function store()
+    public function store(Request $request)
     {
         $attributes = request()->validate([
             'client_id' => 'required|numeric',
@@ -31,13 +32,12 @@ class ClientNotificationsController extends Controller
         ]);
 
         ClientNotification::create($attributes);
-
-        //session()->flash('success', 'Client Created!');
+        LogsController::createLog($request, 'client event', 'create client event');
 
         return redirect('/clientnotifications')->with('success', 'Client Event Created!');
     }
 
-    public function update(ClientNotification $clientnotification)
+    public function update(ClientNotification $clientnotification, Request $request)
     {
 
         $attributes = request()->validate([
@@ -49,8 +49,9 @@ class ClientNotificationsController extends Controller
         ]);
 
         $clientnotification->update($attributes);
+        LogsController::createLog($request, 'client event', 'update client event');
 
-        //return response()->json(['status' => 'Client Updated!']);
+
         return redirect('/clientnotifications')->with('success', 'Client Event Updated!');
     }
 

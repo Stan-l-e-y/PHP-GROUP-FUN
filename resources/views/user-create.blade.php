@@ -15,7 +15,7 @@
 <body class="h-screen mt-10">
     <div class="flex items-center justify-between md:flex-col">
         <div class="max-w-lg mx-auto bg-gray-100 p-6  rounded-xl border border-gray-200">
-            <form action="/users" method="POST" class="mt-10">
+            <form action="/users" method="POST" class="mt-10" enctype="multipart/form-data">
 
                 @csrf
 
@@ -47,6 +47,14 @@
                   <label for="email" class="block mb-2 uppercase font-bold text-xs text-gray-700">email</label>
                   <input type="email" class="border border-gray-400 p-2 w-full" name="email" id="email" value="{{ old('email') }}" required>
                   @error('email')
+                    <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
+                  @enderror
+                </div>
+
+                <div class="mb-6">
+                  <label for="picture" class="block mb-2 uppercase font-bold text-xs text-gray-700">Profile Picture</label>
+                  <input type="file" class="border border-gray-400 p-2 w-full" name="picture" id="picture"  required>
+                  @error('picture')
                     <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
                   @enderror
                 </div>

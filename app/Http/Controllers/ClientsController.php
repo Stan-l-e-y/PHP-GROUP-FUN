@@ -3,17 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Models\Log;
 use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 
 class ClientsController extends Controller
 {
-    public function show()
+    public function show(Request $request)
     {
 
         $clients = Client::all();
         //$notif = Notification::find(1);
+
+        LogsController::createLog($request, 'client', 'view clients');
 
         //print_r($client);
         return view('clients-show', ['clients' => $clients]);
@@ -25,7 +28,7 @@ class ClientsController extends Controller
     }
 
 
-    public function update(Client $client)
+    public function update(Client $client, Request $request)
     {
 
         $attributes = request()->validate([
@@ -44,6 +47,8 @@ class ClientsController extends Controller
 
         $client->update($attributes);
 
+        LogsController::createLog($request, 'client', 'update client');
+
         //return response()->json(['status' => 'Client Updated!']);
         return redirect('/clients')->with('success', 'Client Updated!');
     }
@@ -57,7 +62,7 @@ class ClientsController extends Controller
         //return redirect('/clients')
     }
 
-    public function store()
+    public function store(Request $request)
     {
         $attributes = request()->validate([
             'first_name' => 'required|string',
@@ -74,6 +79,8 @@ class ClientsController extends Controller
         ]);
 
         Client::create($attributes);
+
+        LogsController::createLog($request, 'client', 'create client');
 
         //session()->flash('success', 'Client Created!');
 

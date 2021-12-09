@@ -16,7 +16,7 @@
 </head>
 
 <body>
-    <form action="/users/{{ $user->id }}" method="POST">
+    <form action="/users/{{ $user->id }}" method="POST" enctype="multipart/form-data">
     
         @method('PATCH')
         @csrf
@@ -50,6 +50,15 @@
                 <label for="email" class="block mb-2 uppercase font-bold text-xs text-gray-700">email</label>
                 <input type="email" class="border border-gray-400 p-2 w-full" name="email" id="email" value="{{ old('email',$user->email) }}" required>
                 @error('email')
+                  <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
+                @enderror
+              </div>
+
+              <div class="mb-6">
+                <label for="picture" class="block mb-2 uppercase font-bold text-xs text-gray-700">Profile Picture</label>
+                <input type="file" class="border border-gray-400 p-2 w-full mb-5" name="picture" id="picture" value="{{ old('picture',$user->picture) }}" >
+                <img class="rounded" src="{{ asset('storage/' . $user->picture) }}" alt="" width="100">
+                @error('picture')
                   <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
                 @enderror
               </div>

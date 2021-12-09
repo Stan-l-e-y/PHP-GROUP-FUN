@@ -67,7 +67,7 @@
                     <td class="px-6 py-4 whitespace-nowrap">
                       <div class="flex items-center">
                         <div class="flex-shrink-0 h-10 w-10">
-                          <img class="h-10 w-10 rounded-full" src="https://i.pravatar.cc/100?u={{ $user->id }}" alt="">
+                          <img class=" rounded" src="{{ asset('storage/' . $user->picture) }}" alt="">
                         </div>
                         <div class="ml-4">
                           <div class="text-sm font-medium text-gray-900">
@@ -119,7 +119,9 @@
           </div>
         </div>
       </div>
+      <div>
 
+      </div>
       @if (session()->has('success'))
         <div x-data="{show: true}" x-init="setTimeout(() => show = false, 8000)" x-show="show" class="fixed bottom-5 right-5 bg-blue-500 py-2 px-4 rounded-xl text-sm">
           <p>{{ session('success') }}</p>

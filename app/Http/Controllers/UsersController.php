@@ -2,16 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Log;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
 class UsersController extends Controller
 {
-    public function show()
+    public function show(Request $request)
     {
         $users = User::all();
 
+        $log_attributes = [
+            'employee_id' => auth()->id(),
+            'model' => 'employee',
+            'action' => 'view employees',
+            'date_time' => date('Y-m-d H:i:s'),
+            'ip' => $request->ip()
+        ];
+
+        Log::create($log_attributes);
 
         return view('users-show', ['users' => $users]);
     }
@@ -21,8 +32,10 @@ class UsersController extends Controller
         return view('user-create');
     }
 
-    public function store()
+    public function store(Request $request)
     {
+
+
         $attributes = request()->validate([
             'first_name' => 'required|string',
             'last_name' => 'required|string',
@@ -30,16 +43,33 @@ class UsersController extends Controller
             'email' => ['required', Rule::unique('users', 'email')],
             'cell_number' => 'required|string',
             'position' => 'required|string',
+            'picture' => 'image',
             'password' => 'required|string',
             'status' => 'nullable'
         ]);
 
+        $attributes['picture'] = request()->file('picture')->store('pictures');
+        //ddd($request->ip());
+
+
         User::create($attributes);
+
+
+        $log_attributes = [
+            'employee_id' => auth()->id(),
+            'model' => 'employee',
+            'action' => 'create employee',
+            'date_time' => date('Y-m-d H:i:s'),
+            'ip' => $request->ip()
+        ];
+
+        Log::create($log_attributes);
+
 
         return redirect('/users')->with('success', 'Employee Created!');
     }
 
-    public function update(User $user)
+    public function update(User $user, Request $request)
     {
 
         $attributes = request()->validate([
@@ -49,12 +79,26 @@ class UsersController extends Controller
             'email' => ['required', Rule::unique('users', 'email')->ignore($user->id)],
             'cell_number' => 'required|string',
             'position' => 'required|string',
-            'picture' => 'nullable',
+            'picture' => 'image',
             'status' => 'nullable'
 
         ]);
 
+        if (isset($attributes['picture'])) {
+            $attributes['picture'] = request()->file('picture')->store('pictures');
+        }
+
         $user->update($attributes);
+
+        $log_attributes = [
+            'employee_id' => auth()->id(),
+            'model' => 'employee',
+            'action' => 'update employee',
+            'date_time' => date('Y-m-d H:i:s'),
+            'ip' => $request->ip()
+        ];
+
+        Log::create($log_attributes);
         //return response()->json(['status' => 'Client Updated!']);
         return redirect('/users')->with('success', 'Employee Updated!');
     }

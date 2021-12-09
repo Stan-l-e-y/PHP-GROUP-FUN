@@ -7,11 +7,11 @@ use Illuminate\Http\Request;
 
 class NotificationsController extends Controller
 {
-    public function show()
+    public function show(Request $request)
     {
         $notifications = Notification::all();
 
-
+        LogsController::createLog($request, 'notification', 'view notifications');
         return view('notifications-show', ['notifications' => $notifications]);
     }
 
@@ -20,7 +20,7 @@ class NotificationsController extends Controller
         return view('notification-create');
     }
 
-    public function store()
+    public function store(Request $request)
     {
         $attributes = request()->validate([
             'name' => 'required|string',
@@ -29,11 +29,12 @@ class NotificationsController extends Controller
         ]);
 
         Notification::create($attributes);
+        LogsController::createLog($request, 'notification', 'create notification');
 
         return redirect('/notifications')->with('success', 'Notification Created!');
     }
 
-    public function update(Notification $notification)
+    public function update(Notification $notification, Request $request)
     {
 
         $attributes = request()->validate([
@@ -43,6 +44,7 @@ class NotificationsController extends Controller
         ]);
 
         $notification->update($attributes);
+        LogsController::createLog($request, 'notification', 'update notification');
 
         //return response()->json(['status' => 'Client Updated!']);
         return redirect('/notifications')->with('success', 'Notification Updated!');
