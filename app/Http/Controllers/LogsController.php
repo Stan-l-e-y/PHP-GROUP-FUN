@@ -19,4 +19,11 @@ class LogsController extends Controller
 
         Log::create($log_attributes);
     }
+
+    public function show()
+    {
+        $logs = Log::all();
+
+        return view('logs-show', ['logs' => $logs]);
+    }
 }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ClientNotificationsController;
 use App\Http\Controllers\ClientsController;
+use App\Http\Controllers\LogsController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\SessionsController;
@@ -131,3 +132,6 @@ Route::get('/users/{user}/edit', function (User $user) {
 Route::patch('/users/{user}', [UsersController::class, 'update'])->middleware('auth');
 
 Route::delete('/users/{user}', [UsersController::class, 'destroy'])->middleware('auth');
+
+//Log route
+Route::get('/logs', [LogsController::class, 'show'])->middleware('auth');
