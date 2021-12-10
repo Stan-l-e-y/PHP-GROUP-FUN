@@ -8,11 +8,13 @@ use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\UsersController;
+use App\Mail\NotificationMail;
 use App\Models\Client;
 use App\Models\ClientNotification;
 use App\Models\Notification;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 
@@ -135,3 +137,10 @@ Route::delete('/users/{user}', [UsersController::class, 'destroy'])->middleware(
 
 //Log route
 Route::get('/logs', [LogsController::class, 'show'])->middleware('auth');
+
+
+//Mail route
+Route::get('/email', function () {
+    Mail::to('stanleytsonev@hotmail.com')->send(new NotificationMail());
+    return new NotificationMail();
+})->middleware('auth');;
