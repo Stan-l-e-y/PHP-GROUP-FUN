@@ -14,6 +14,9 @@ class UsersController extends Controller
     {
         $users = User::all();
 
+        $user = User::find(auth()->id());
+        ddd($user->status);
+        //ddd(auth()->id());
         $log_attributes = [
             'employee_id' => auth()->id(),
             'model' => 'employee',
@@ -43,12 +46,15 @@ class UsersController extends Controller
             'email' => ['required', Rule::unique('users', 'email')],
             'cell_number' => 'required|string',
             'position' => 'required|string',
-            'picture' => 'image',
+            'picture' => 'image|nullable',
             'password' => 'required|string',
             'status' => 'nullable'
         ]);
 
-        $attributes['picture'] = request()->file('picture')->store('pictures');
+        if (isset($attributes['picture']) && !is_null($attributes['picture'])) {
+            $attributes['picture'] = request()->file('picture')->store('pictures');
+        }
+
         //ddd($request->ip());
 
 
