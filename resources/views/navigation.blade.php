@@ -25,7 +25,7 @@
             @endauth
         </div>
         <div class="mb-1/12 font-bold text-xl">Navigation Bar</div>
-        <div class="bg-gray-500 bg-opacity-25 flex flex-col h-auto items-center w-1/6 rounded-md border-solid border-gray-400 border-2">
+        <div class="bg-gray-500 bg-opacity-25 flex flex-col h-auto items-center w-1/6 rounded-md border-solid border-gray-400 border-2 mb-10">
             <a href="/clients" class="bg-blue-500 hover:bg-blue-700 px-10 text-white font-bold py-2 rounded mt-10">Client Manager</a>
             <a href="/notifications" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-10 ">Notification Manager</a>
             <a href="/clientnotifications" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-10 ">Client Event Manager</a>
