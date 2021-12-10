@@ -112,7 +112,7 @@ Route::delete('/clientnotifications/{clientnotification}', [ClientNotificationsC
 //Session routes
 Route::post('/logout', [SessionsController::class, 'destroy'])->middleware('auth');
 
-Route::get('/login', [SessionsController::class, 'create'])->middleware('guest');
+Route::get('/login', [SessionsController::class, 'create'])->middleware('guest')->name('login');
 
 Route::post('/login', [SessionsController::class, 'store'])->middleware('guest');
 

@@ -15,7 +15,8 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
-        abort(Response::HTTP_FORBIDDEN);
+        return route('login');
+        //abort(Response::HTTP_FORBIDDEN);
         // if (!$request->expectsJson()) {
         //     abort(Response::HTTP_FORBIDDEN);
         //     //return route('login');
